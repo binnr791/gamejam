@@ -14,6 +14,7 @@ public class Surf : MonoBehaviour
     private GameObject backgroundPrefab;
 
     [Header("State")]
+    public bool isStarted  = false;
     public bool isGameOver = false;
 
     [Header("Other Values")]
@@ -37,7 +38,7 @@ public class Surf : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if(IsStopped())
+        if(isStarted && IsStopped())
         {
             GameOver();
         }
@@ -59,6 +60,7 @@ public class Surf : MonoBehaviour
 
     public void StartGame()
     {
+        isStarted = true;
         Vector2 forceDirection = new Vector2(horizontalSurfStartForce, verticalSurfStartForce);
         rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
     }
