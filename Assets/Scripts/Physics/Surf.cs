@@ -8,23 +8,28 @@ public class Surf : MonoBehaviour
 {
     new Rigidbody2D rigidbody;
 
+    public bool isGameOver = false;
+
+    public float horizontalSurfStartForce;
+    public float verticalSurfStartForce;
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        
     }
     
     private void FixedUpdate()
     {
-        if(!IsStopped())
+        if(IsStopped())
         {
             GameOver();
         }
     }
 
-    private void StartGame()
+    public void StartGame()
     {
-        rigidbody.AddForce(Vector2.right, ForceMode2D.Impulse);
+        Vector2 forceDirection = new Vector2(horizontalSurfStartForce, verticalSurfStartForce);
+        rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
     }
 
     private bool IsStopped()
@@ -37,6 +42,10 @@ public class Surf : MonoBehaviour
 
     public void GameOver()
     {
-
+        if(!isGameOver)
+        {
+            isGameOver = true;
+            Debug.Log("Game Over");
+        }
     }
 }
