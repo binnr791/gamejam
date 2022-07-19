@@ -7,13 +7,16 @@ public class Grabbing : MonoBehaviour
     // ref
     private Transform player;
     [SerializeField] public Transform hookMask;
-    [SerializeField] public Transform hookObject;
+    [SerializeField] public Transform hookLine;
+    [SerializeField] private Transform hooker;
 
     private Vector3 newRot;
 
+    public bool isHooked;
     public bool isHooking;
     private WaitForSeconds timeUnit;
     private int hookTime = 25;
+    Vector2 hookDirection;
 
     private void Awake()
     {
@@ -24,6 +27,7 @@ public class Grabbing : MonoBehaviour
 
         Vector3 newScale = new Vector3(1f, 1f, 1f);
         hookMask.localScale = newScale;
+        isHooked = false;
     }
 
     void Update()
@@ -36,9 +40,9 @@ public class Grabbing : MonoBehaviour
 
     private void Hook()
     {
-        Vector2 hookDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(player.position);
+        hookDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(player.position);
         float degree = Mathf.Rad2Deg * Mathf.Atan2(hookDirection.y, hookDirection.x);
-        hookObject.rotation = Quaternion.AngleAxis(degree, Vector3.forward);
+        hookLine.rotation = Quaternion.AngleAxis(degree, Vector3.forward);
 
         if(!isHooking)
             StartCoroutine("StartHook");
@@ -48,17 +52,35 @@ public class Grabbing : MonoBehaviour
     {
         Debug.Log("Hook");
         isHooking = true;
+
         int time = 0;
         Vector3 newScale = new Vector3(1f, 1f, 1f);
+        Vector3 newHookScale = new Vector3(0f, 1f, 1f);
         while(time < hookTime)
         {
             newScale.x = newScale.x + (12f / hookTime);
-            hookMask.localScale = newScale;
+            hookMask.localScale = newScale; // 시각적 요소
+            // newHookScale.x = 1 / newScale.x;
+            // hooker.localScale = newHookScale; // 판정 블록 움직이기
+
+            if(isHooked)
+            {
+                isHooked = false;
+                isHooking = false;
+                break;
+            }
 
             time += 1;
             yield return timeUnit;
         }
         hookMask.localScale = new Vector3(1f, 1f, 1f);
+
         isHooking = false;
+    }
+
+    public void Hooked()
+    {
+        isHooked = true;
+        GetComponent<Rigidbody2D>().AddForce(hookDirection.normalized * 5f, ForceMode2D.Impulse);
     }
 }
