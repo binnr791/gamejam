@@ -9,11 +9,14 @@ public class Surf : MonoBehaviour
     new Rigidbody2D rigidbody;
     [Header("Ref")]
     [SerializeField] public Transform backgroundParent;
+    [SerializeField] public Transform groundParent;
 
     [Header("Prefab Ref")]
     private GameObject backgroundPrefab;
+    private GameObject groundPrefab;
 
     [Header("State")]
+    public bool isStarted  = false;
     public bool isGameOver = false;
 
     [Header("Other Values")]
@@ -31,13 +34,14 @@ public class Surf : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        backgroundPrefab = Resources.Load<GameObject>("Prefabs/Background/Background");
+        backgroundPrefab = Resources.Load<GameObject>("Prefabs/Environment/Background");
+        groundPrefab = Resources.Load<GameObject>("Prefabs/Environment/Ground");
         nextXPosBG = backgroundUnit;
     }
     
     private void FixedUpdate()
     {
-        if(IsStopped())
+        if(isStarted && IsStopped())
         {
             GameOver();
         }
@@ -45,8 +49,10 @@ public class Surf : MonoBehaviour
         // 이동할 때마다 배경 동적 생성
         while(transform.position.x > nextXPosBG)
         {
-            GameObject bg = Instantiate(backgroundPrefab, new Vector3(nextXPosBG + backgroundUnit, 0f, 1f), Quaternion.identity);
+            GameObject bg = Instantiate(backgroundPrefab, new Vector3(nextXPosBG + 2 * backgroundUnit, 0f, 1f), Quaternion.identity);
+            GameObject ground = Instantiate(groundPrefab, new Vector3(nextXPosBG + 2 * backgroundUnit, -4.5f, 0f), Quaternion.identity);
             bg.transform.parent = backgroundParent;
+            ground.transform.parent = groundParent;
             nextXPosBG += backgroundUnit;
         }
     }
@@ -59,6 +65,7 @@ public class Surf : MonoBehaviour
 
     public void StartGame()
     {
+        isStarted = true;
         Vector2 forceDirection = new Vector2(horizontalSurfStartForce, verticalSurfStartForce);
         rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
     }
