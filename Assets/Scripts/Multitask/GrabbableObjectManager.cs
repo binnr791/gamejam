@@ -34,7 +34,8 @@ public class GrabbableObjectManager : MonoBehaviour
 
     void CreateGull()
     {
-        GameObject gull = Instantiate(gullPrefab, new Vector3(player.position.x + Random.Range(0f, 2.5f) + 6f, 4f + Random.Range(0f, 0.5f), 0f), Quaternion.identity);
+        GameObject gull = Instantiate(gullPrefab, new Vector3(player.position.x + Random.Range(0f, 2.5f) + 9f,
+                                      player.position.y + 8f + Random.Range(0f, 0.5f), 0f), Quaternion.identity);
         gull.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1f, -1f), ForceMode2D.Impulse);
     }
 }
