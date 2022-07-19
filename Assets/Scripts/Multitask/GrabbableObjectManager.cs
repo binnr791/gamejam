@@ -7,7 +7,7 @@ public class GrabbableObjectManager : MonoBehaviour
     // ref
     [SerializeField] private Transform player;
 
-    [SerializeField] private float startCreatingObjectTime;
+    [SerializeField] private float lastCreatedObjectTime;
     [SerializeField] private float creatingObjectTimeInterval;
     private int timesCreated;
 
@@ -18,17 +18,17 @@ public class GrabbableObjectManager : MonoBehaviour
 
     private void Awake()
     {
-        timesCreated = 2;
-        random = new System.Random();
+        creatingObjectTimeInterval = Random.Range(5f, 8f);
         gullPrefab = Resources.Load<GameObject>("Prefabs/Grabbable/Gull");
     }
 
     void Update()
     {
-        if(startCreatingObjectTime + (creatingObjectTimeInterval * timesCreated) < Time.time)
+        if(lastCreatedObjectTime + creatingObjectTimeInterval < Time.time)
         {
             CreateGull();
-            timesCreated += 1;
+            creatingObjectTimeInterval = Random.Range(5f, 8f);
+            lastCreatedObjectTime = Time.time;
         }
     }
 
