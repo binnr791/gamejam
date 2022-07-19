@@ -49,8 +49,8 @@ public class Surf : MonoBehaviour
         // 이동할 때마다 배경 동적 생성
         while(transform.position.x > nextXPosBG)
         {
-            GameObject bg = Instantiate(backgroundPrefab, new Vector3(nextXPosBG + 2 * backgroundUnit, 0f, 1f), Quaternion.identity);
-            GameObject ground = Instantiate(groundPrefab, new Vector3(nextXPosBG + 2 * backgroundUnit, -4.5f, 0f), Quaternion.identity);
+            GameObject bg = Instantiate(backgroundPrefab, new Vector3(nextXPosBG + 4 * backgroundUnit, 16f, 1f), Quaternion.identity);
+            GameObject ground = Instantiate(groundPrefab, new Vector3(nextXPosBG + 4 * backgroundUnit, -10f, 0f), Quaternion.identity);
             bg.transform.parent = backgroundParent;
             ground.transform.parent = groundParent;
             nextXPosBG += backgroundUnit;
