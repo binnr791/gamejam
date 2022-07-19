@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GrabbableObjectManager : MonoBehaviour
 {
+    // ref
+    [SerializeField] private Transform player;
+
     [SerializeField] private float startCreatingObjectTime;
     [SerializeField] private float creatingObjectTimeInterval;
     private int timesCreated;
@@ -11,10 +14,12 @@ public class GrabbableObjectManager : MonoBehaviour
     public GameObject gullPrefab;
     public GameObject fishPrefab;
 
+    System.Random random;
+
     private void Awake()
     {
         timesCreated = 2;
-
+        random = new System.Random();
         gullPrefab = Resources.Load<GameObject>("Prefabs/Grabbable/Gull");
     }
 
@@ -29,7 +34,7 @@ public class GrabbableObjectManager : MonoBehaviour
 
     void CreateGull()
     {
-        GameObject gull = Instantiate(gullPrefab, new Vector3(2f, 4f, 0f), Quaternion.identity);
+        GameObject gull = Instantiate(gullPrefab, new Vector3(player.position.x + Random.Range(0f, 2.5f) + 6f, 4f + Random.Range(0f, 0.5f), 0f), Quaternion.identity);
         gull.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1f, -1f), ForceMode2D.Impulse);
     }
 }
