@@ -11,35 +11,21 @@ public class Umbrot : MonoBehaviour
     void Update()
     {
         if (isRotate)
-        {
-            StartCoroutine(Umb_Rotate());
-        }
+            transform.Rotate(Vector3.forward, turnSpeed * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isRotate)
         {
-            isRotate = false;
-            RotCheck();
+            StartCoroutine("UmbStopRotate");
         }
  
     }
 
-    void RotCheck()
+    private IEnumerator UmbStopRotate()
     {
-        if (!isRotate)
-        {
-            StopCoroutine(Umb_Rotate());
-        }
-    }
-
-    private IEnumerator Umb_Rotate()
-    {
-        transform.Rotate(Vector3.forward, turnSpeed * Time.deltaTime);
-        yield return new WaitForSecondsRealtime(1);
-        
+        isRotate = false;
+        yield return new WaitForSeconds(1f);
         isRotate = true;
-        yield return null;
     }
-
 }
 
 
