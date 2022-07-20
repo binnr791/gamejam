@@ -18,7 +18,7 @@ public class GrabbableObjectManager : MonoBehaviour
 
     private void Awake()
     {
-        creatingObjectTimeInterval = Random.Range(5f, 8f);
+        creatingObjectTimeInterval = Random.Range(4f, 6f);
         gullPrefab = Resources.Load<GameObject>("Prefabs/Grabbable/Gull");
     }
 
@@ -27,15 +27,15 @@ public class GrabbableObjectManager : MonoBehaviour
         if(lastCreatedObjectTime + creatingObjectTimeInterval < Time.time)
         {
             CreateGull();
-            creatingObjectTimeInterval = Random.Range(5f, 8f);
+            creatingObjectTimeInterval = Random.Range(4f, 6f);
             lastCreatedObjectTime = Time.time;
         }
     }
 
     void CreateGull()
     {
-        GameObject gull = Instantiate(gullPrefab, new Vector3(player.position.x + Random.Range(0f, 2.5f) + 9f,
-                                      player.position.y + 8f + Random.Range(0f, 0.5f), 0f), Quaternion.identity);
-        gull.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1f, -1f), ForceMode2D.Impulse);
+        GameObject gull = Instantiate(gullPrefab, new Vector3(player.position.x + 14f,
+                                      player.position.y + 3f + Random.Range(0f, 2f), 0f), Quaternion.identity);
+        // gull.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1f, -1f), ForceMode2D.Impulse);
     }
 }
