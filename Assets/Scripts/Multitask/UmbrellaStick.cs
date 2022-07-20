@@ -7,6 +7,7 @@ public class UmbrellaStick : MonoBehaviour
     [SerializeField] private Surf surf;
     public Umbrot rot;
     public GameObject barrier;
+    public ParticleSystem blueParticle;
 
     void OnTriggerStay2D(Collider2D other)
     {
@@ -18,6 +19,9 @@ public class UmbrellaStick : MonoBehaviour
             other.gameObject.SetActive(false);
             rot.StartCoroutine("RndAngle");
             surf.SurfHigher();
+
+            blueParticle.transform.position = other.gameObject.transform.position;
+            blueParticle.Play();
         }
     }
 }

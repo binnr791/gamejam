@@ -10,6 +10,8 @@ public class BalanceCircle : MonoBehaviour
     public Vector3 originPos;
     public new Rigidbody2D rigidbody;
 
+    public ParticleSystem redParticle;
+
     public float originUptime = 7f;
     public float uptime;
     [SerializeField] GameObject typoonObject;
@@ -37,6 +39,9 @@ public class BalanceCircle : MonoBehaviour
     {
         if(other.tag == "Border")
         {
+            redParticle.transform.position = transform.position;
+            redParticle.Play();
+
             transform.position = originPos;
             rigidbody.velocity = Vector2.zero;
             surf.SurfLower();
