@@ -22,6 +22,13 @@ public class Umbrot : MonoBehaviour
         barrier.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        isRotate = true;
+        isSpace = true;
+        other.gameObject.SetActive(true);
+    }
+
     void Update()
     {
         if (isRotate)

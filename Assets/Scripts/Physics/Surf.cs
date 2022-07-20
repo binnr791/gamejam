@@ -15,8 +15,10 @@ public class Surf : MonoBehaviour
 
     [SerializeField] private Transform downArrow;
     [SerializeField] private Transform upArrow;
-    private Sequence downArrowSequence;
-    private Sequence upArrowSequence;
+    public Sequence downArrowSequence;
+    public Sequence upArrowSequence;
+
+    [SerializeField] private GameObject gameOverWindow;
 
     [Header("Prefab Ref")]
     private GameObject backgroundPrefab;
@@ -52,13 +54,13 @@ public class Surf : MonoBehaviour
         downArrowSequence = DOTween.Sequence();
         downArrowSequence.Append(downArrow.DOScale(new Vector3(0.25f, 0.25f, 1f), 0.2f));
         downArrowSequence.AppendInterval(0.4f);
-        downArrowSequence.Append(downArrow.DOScale(new Vector3(0f, 0f, 0f), 0.1f));
+        downArrowSequence.Append(downArrow.DOScale(new Vector3(0f, 0f, 0f), 0.1f)).SetAutoKill(false);
 
         // up arrow
         upArrowSequence = DOTween.Sequence();
         upArrowSequence.Append(upArrow.DOScale(new Vector3(0.25f, 0.25f, 1f), 0.2f));
         upArrowSequence.AppendInterval(0.4f);
-        upArrowSequence.Append(upArrow.DOScale(new Vector3(0f, 0f, 0f), 0.1f));
+        upArrowSequence.Append(upArrow.DOScale(new Vector3(0f, 0f, 0f), 0.1f)).SetAutoKill(false);
     }
     
     private void FixedUpdate()
@@ -77,27 +79,41 @@ public class Surf : MonoBehaviour
             ground.transform.parent = groundParent;
             nextXPosBG += backgroundUnit;
         }
+
+        if(transform.position.x > 1500f)
+        {
+            Ending();
+        }
     }
 
     public void SurfHigher()
     {
-        Vector2 forceDirection = new Vector2(horizontalSurfHigherForce, verticalSurfHigherForce);
-        rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
-        upArrowSequence.Restart();
+        if(!isGameOver)
+        {
+            Vector2 forceDirection = new Vector2(horizontalSurfHigherForce, verticalSurfHigherForce);
+            rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
+            upArrowSequence.Restart();
+        }
     }
 
     public void SurfLower()
     {
-        Vector2 forceDirection = new Vector2(horizontalSurfLowerForce, verticalSurfLowerForce);
-        rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
-        downArrowSequence.Restart();
+        if(!isGameOver)
+        {
+            Vector2 forceDirection = new Vector2(horizontalSurfLowerForce, verticalSurfLowerForce);
+            rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
+            downArrowSequence.Restart();
+        }
     }
 
     public void SurfLittleLower()
     {
-        Vector2 forceDirection = new Vector2(horizontalSurfLowerForce * 0.5f, verticalSurfLowerForce * 0.5f);
-        rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
-        downArrowSequence.Restart();
+        if(!isGameOver)
+        {
+            Vector2 forceDirection = new Vector2(horizontalSurfLowerForce * 0.5f, verticalSurfLowerForce * 0.5f);
+            rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
+            downArrowSequence.Restart();
+        }
     }
 
     public void StartGame()
@@ -121,6 +137,12 @@ public class Surf : MonoBehaviour
         {
             isGameOver = true;
             Debug.Log("Game Over");
+            gameOverWindow.SetActive(true);
         }
+    }
+
+    public void Ending()
+    {
+
     }
 }

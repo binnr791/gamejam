@@ -13,6 +13,7 @@ public class Hook : MonoBehaviour
         if(go != null)
         {
             grabbing.Hooked();
+            
         }    
     }
 }

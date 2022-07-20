@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using DG.Tweening;
+
 public class Grabbing : MonoBehaviour
 {
     // ref
     private Transform player;
+    private Surf surf;
     [SerializeField] public Transform hookMask;
     [SerializeField] public Transform hookLine;
     [SerializeField] private Transform hooker;
@@ -23,6 +26,8 @@ public class Grabbing : MonoBehaviour
     private void Awake()
     {
         player = transform;
+        surf = GetComponent<Surf>();
+        
         newRot.x = 0f;
         newRot.y = 0f;
         timeUnit = new WaitForSeconds(0.016f);
@@ -42,12 +47,15 @@ public class Grabbing : MonoBehaviour
 
     private void Hook()
     {
-        hookDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(player.position);
-        float degree = Mathf.Rad2Deg * Mathf.Atan2(hookDirection.y, hookDirection.x);
-        hookLine.rotation = Quaternion.AngleAxis(degree, Vector3.forward);
+        if(!surf.isGameOver)
+        {
+            hookDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(player.position);
+            float degree = Mathf.Rad2Deg * Mathf.Atan2(hookDirection.y, hookDirection.x);
+            hookLine.rotation = Quaternion.AngleAxis(degree, Vector3.forward);
 
-        if(!isHooking)
-            StartCoroutine("StartHook");
+            if(!isHooking)
+                StartCoroutine("StartHook");
+        }
     }
 
     private IEnumerator StartHook()
@@ -84,5 +92,7 @@ public class Grabbing : MonoBehaviour
     {
         isHooked = true;
         GetComponent<Rigidbody2D>().AddForce(hookDirection.normalized * hookForce, ForceMode2D.Impulse);
+        GetComponent<Surf>().upArrowSequence.Restart();
+        
     }
 }
