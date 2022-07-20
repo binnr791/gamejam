@@ -8,7 +8,7 @@ public class GrabbableObject : MonoBehaviour
 
     private void Awake()
     {
-        rigidbody.GetComponent<Rigidbody2D>();
+        rigidbody = GetComponent<Rigidbody2D>();
         rigidbody.AddForce(new Vector2(-1f, 0f), ForceMode2D.Impulse);
     }
 }

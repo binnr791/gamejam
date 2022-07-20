@@ -31,6 +31,9 @@ public class Surf : MonoBehaviour
     [SerializeField] public float horizontalSurfHigherForce;
     [SerializeField] public float verticalSurfHigherForce;
 
+    [SerializeField] public float horizontalSurfLowerForce;
+    [SerializeField] public float verticalSurfLowerForce;
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -60,6 +63,12 @@ public class Surf : MonoBehaviour
     public void SurfHigher()
     {
         Vector2 forceDirection = new Vector2(horizontalSurfHigherForce, verticalSurfHigherForce);
+        rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
+    }
+
+    public void SurfLower()
+    {
+        Vector2 forceDirection = new Vector2(horizontalSurfLowerForce, verticalSurfLowerForce);
         rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
     }
 

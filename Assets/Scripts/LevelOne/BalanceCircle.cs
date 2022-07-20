@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BalanceCircle : MonoBehaviour
 {
+    [SerializeField] private Surf surf;
     public Vector3 originPos;
     public new Rigidbody2D rigidbody;
 
@@ -20,6 +21,7 @@ public class BalanceCircle : MonoBehaviour
         {
             transform.position = originPos;
             rigidbody.velocity = Vector2.zero;
+            surf.SurfLower();
         }
     }
 }
