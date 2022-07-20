@@ -27,6 +27,7 @@ public class Surf : MonoBehaviour
     [Header("State")]
     public bool isStarted  = false;
     public bool isGameOver = false;
+    public bool isGameWin  = false;
 
     [Header("Other Values")]
     private float nextXPosBG;
@@ -133,7 +134,7 @@ public class Surf : MonoBehaviour
 
     public void GameOver()
     {
-        if(!isGameOver)
+        if(!isGameOver && !isGameWin)
         {
             isGameOver = true;
             Debug.Log("Game Over");
