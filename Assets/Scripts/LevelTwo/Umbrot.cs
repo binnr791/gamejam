@@ -7,7 +7,6 @@ public class Umbrot : MonoBehaviour
     public float turnSpeed = 1000;
     public float angle;
 
-    public GameObject Umb;
     public GameObject qteBoxParent;
     public GameObject other;
     public GameObject barrier;
