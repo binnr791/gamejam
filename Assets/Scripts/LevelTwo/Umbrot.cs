@@ -28,7 +28,7 @@ public class Umbrot : MonoBehaviour
             transform.Rotate(Vector3.forward, turnSpeed * Time.deltaTime);
             
 
-        if (Input.GetKeyDown(KeyCode.Space) && isSpace)
+        if (Input.GetKeyDown(KeyCode.W) && isSpace)
         {
             StartCoroutine("RndAngle");
             StartCoroutine("UmbStopRotate");

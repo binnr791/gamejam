@@ -10,7 +10,7 @@ public class UmbrellaStick : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("QTE") && Input.GetKey(KeyCode.Space))
+        if (other.gameObject.CompareTag("QTE") && Input.GetKey(KeyCode.W))
         {
             rot.lastBarrierActiveTime = Time.time;
             rot.barrierDuration = 3f;

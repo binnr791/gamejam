@@ -93,6 +93,13 @@ public class Surf : MonoBehaviour
         downArrowSequence.Restart();
     }
 
+    public void SurfLittleLower()
+    {
+        Vector2 forceDirection = new Vector2(horizontalSurfLowerForce * 0.5f, verticalSurfLowerForce * 0.5f);
+        rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
+        downArrowSequence.Restart();
+    }
+
     public void StartGame()
     {
         isStarted = true;

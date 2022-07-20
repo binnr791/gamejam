@@ -28,41 +28,38 @@ public class Typoon : MonoBehaviour
 
     private void Awake()
     {
-        timeInterval = 0.34f;
+        timeInterval = 0.4f;
         isTypoonCome = false;
         isTypoonWarned = false;
 
-        typoonInterval = 10f;
+        typoonInterval = 12f;
 
         // 태풍 경고문 초기화
-        Tween moveLeft = typoonWarningObject.DOAnchorPos(new Vector2(0f, 75f), 0.2f);
+        Tween moveDown = typoonWarningObject.DOAnchorPos(new Vector2(0f, 0f), 0.2f);
 
         typoonWarningSequence = DOTween.Sequence();
-        typoonWarningSequence.Append(moveLeft)
+        typoonWarningSequence.Append(moveDown)
         .AppendInterval(0.25f)
         .AppendInterval(3f).AppendCallback(() => DecreaseWarnTime())
-        .Append(typoonWarningObject.DOAnchorPos(new Vector2(0f, 0f), 0.2f))
-
+        .Append(typoonWarningObject.DOAnchorPos(new Vector2(0f, 75f), 0.2f))
+        
         .Append(typoonMessage.DOAnchorPos(new Vector2(0f, -105f), 0.3f))
+        .AppendCallback(() => ReadyTypoon())
         .AppendInterval(0.5f).AppendCallback(() => DecreaseWarnTime())
+        .AppendCallback(() => StartTypoon())
         .AppendInterval(3.5f).AppendCallback(() => DecreaseWarnTime())
         .Append(typoonMessage.DOAnchorPos(new Vector2(0f, 165f), 0.3f))
-        .AppendCallback(() => DecreaseWarnTime());
+        .AppendCallback(() => StopTypoon()).SetAutoKill(false);
     }
 
     void Update()
     {
-        if(typoonStartTime + typoonInterval * num - 3.25f < Time.time && !isTypoonWarned) // 태풍 경고
+        if(typoonStartTime + typoonInterval * num < Time.time && !isTypoonWarned) // 태풍 경고
         {
             num += 1;
             isTypoonWarned = true;
             typoonWarningSequence.Restart();
             Debug.Log("곧 태풍이 옵니다!");
-        }
-        if(typoonStartTime < Time.time && !isTypoonCome) // 태풍 시작
-        {
-            isTypoonCome = true;
-            Debug.Log("태풍이 옵니다!");
         }
         if(isTypoonCome) // 태풍 - 스페이스 바 입력 체크
         {
@@ -82,7 +79,7 @@ public class Typoon : MonoBehaviour
         {
             Debug.Log("(폭풍) 스페이스 바 입력 실패");
             needInputTime = Time.time + timeInterval;
-            surf.SurfLower();
+            surf.SurfLittleLower();
         }
     }
 
@@ -91,10 +88,25 @@ public class Typoon : MonoBehaviour
 
     }
 
+    private void ReadyTypoon()
+    {
+        MultitaskCamera.instance.DisableBalanceCamera();
+        MultitaskCamera.instance.DisableQTECamera();
+    }
+
+    private void StartTypoon()
+    {
+        isTypoonWarned = true;
+        isTypoonCome = true;
+    }
+
     private void StopTypoon()
     {
         isTypoonWarned = false;
         isTypoonCome = false;
+
+        MultitaskCamera.instance.AppearBalanceCamera();
+        MultitaskCamera.instance.AppearQTECamera();
     }
 
 }

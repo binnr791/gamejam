@@ -9888,7 +9888,7 @@ GameObject:
   - component: {fileID: 1902494589}
   - component: {fileID: 1902494588}
   m_Layer: 5
-  m_Name: Space
+  m_Name: W
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9933,9 +9933,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'SPACE
-
-'
+  m_text: W
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f52020dff685b174c89264b78b8c2026, type: 2}
   m_sharedMaterial: {fileID: 3227150823966683781, guid: f52020dff685b174c89264b78b8c2026, type: 2}
