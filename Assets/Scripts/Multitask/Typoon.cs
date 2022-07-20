@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class Typoon : MonoBehaviour
 {
+    [SerializeField] Surf surf;
+
     [Header("State")]
     public bool isTypoonWarned;
     public bool isTypoonCome;
@@ -15,9 +17,13 @@ public class Typoon : MonoBehaviour
     [HideInInspector] public float lastInputTime;   // 마지막으로 스페이스바 누른 시점
     [HideInInspector] public float timeInterval;    // 스페이스바 입력 간격
     [HideInInspector] public float needInputTime;   // 이 때까지 스페이스바 입력해야 함
+    public float typoonInterval;
+
+    public int num = 1;
 
     [Header("Warning Tween")]
     public RectTransform typoonWarningObject;
+    public RectTransform typoonMessage;
     private Sequence typoonWarningSequence;
 
     private void Awake()
@@ -26,25 +32,32 @@ public class Typoon : MonoBehaviour
         isTypoonCome = false;
         isTypoonWarned = false;
 
+        typoonInterval = 10f;
+
         // 태풍 경고문 초기화
-        Tween moveLeft = typoonWarningObject.DOAnchorPosX(0f, 0.25f);
+        Tween moveLeft = typoonWarningObject.DOAnchorPos(new Vector2(0f, 75f), 0.2f);
 
         typoonWarningSequence = DOTween.Sequence();
         typoonWarningSequence.Append(moveLeft)
         .AppendInterval(0.25f)
-        .AppendInterval(1f).AppendCallback(() => DecreaseWarnTime())
-        .AppendInterval(1f).AppendCallback(() => DecreaseWarnTime())
-        .AppendInterval(1f).AppendCallback(() => DecreaseWarnTime())
-        .Append(typoonWarningObject.DOAnchorPosX(-470f, 0.5f));
+        .AppendInterval(3f).AppendCallback(() => DecreaseWarnTime())
+        .Append(typoonWarningObject.DOAnchorPos(new Vector2(0f, 0f), 0.2f))
+
+        .Append(typoonMessage.DOAnchorPos(new Vector2(0f, -105f), 0.3f))
+        .AppendInterval(0.5f).AppendCallback(() => DecreaseWarnTime())
+        .AppendInterval(3.5f).AppendCallback(() => DecreaseWarnTime())
+        .Append(typoonMessage.DOAnchorPos(new Vector2(0f, 165f), 0.3f))
+        .AppendCallback(() => DecreaseWarnTime());
     }
 
     void Update()
     {
-        if(typoonStartTime - 3.25f < Time.time && !isTypoonWarned) // 태풍 경고
+        if(typoonStartTime + typoonInterval * num - 3.25f < Time.time && !isTypoonWarned) // 태풍 경고
         {
+            num += 1;
             isTypoonWarned = true;
             typoonWarningSequence.Restart();
-            Debug.Log("3초 뒤 태풍이 옵니다!");
+            Debug.Log("곧 태풍이 옵니다!");
         }
         if(typoonStartTime < Time.time && !isTypoonCome) // 태풍 시작
         {
@@ -69,6 +82,7 @@ public class Typoon : MonoBehaviour
         {
             Debug.Log("(폭풍) 스페이스 바 입력 실패");
             needInputTime = Time.time + timeInterval;
+            surf.SurfLower();
         }
     }
 
@@ -76,4 +90,11 @@ public class Typoon : MonoBehaviour
     {
 
     }
+
+    private void StopTypoon()
+    {
+        isTypoonWarned = false;
+        isTypoonCome = false;
+    }
+
 }

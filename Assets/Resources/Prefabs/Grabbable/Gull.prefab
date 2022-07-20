@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3824742600810553579}
   - component: {fileID: 3824742600810553578}
-  - component: {fileID: 3824742600810553577}
   - component: {fileID: 3824742600810553576}
   - component: {fileID: 3824742600810553575}
+  - component: {fileID: -1642748661149695177}
   m_Layer: 0
   m_Name: Gull
   m_TagString: Untagged
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c858e11c602b85f4e83a5b2341880740, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,27 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &3824742600810553577
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3824742600810553574}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: ec32c2bea9b568c4a92c54afb1025d6b, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &3824742600810553576
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -119,9 +98,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.5027344, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8720238
 --- !u!114 &3824742600810553575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +113,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e1bb1fccb8598458b0170cbef706cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &-1642748661149695177
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3824742600810553574}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

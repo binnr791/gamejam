@@ -18,6 +18,8 @@ public class Grabbing : MonoBehaviour
     private int hookTime = 25;
     Vector2 hookDirection;
 
+    private float hookForce = 3.5f;
+
     private void Awake()
     {
         player = transform;
@@ -81,6 +83,6 @@ public class Grabbing : MonoBehaviour
     public void Hooked()
     {
         isHooked = true;
-        GetComponent<Rigidbody2D>().AddForce(hookDirection.normalized * 5f, ForceMode2D.Impulse);
+        GetComponent<Rigidbody2D>().AddForce(hookDirection.normalized * hookForce, ForceMode2D.Impulse);
     }
 }
