@@ -6,6 +6,7 @@ TagManager:
   tags:
   - QTE
   - Border
+  - Destroy
   layers:
   - Default
   - TransparentFX

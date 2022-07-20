@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using DG.Tweening;
+
 [RequireComponent(typeof(Rigidbody2D))]
 
 public class Surf : MonoBehaviour
@@ -10,6 +12,11 @@ public class Surf : MonoBehaviour
     [Header("Ref")]
     [SerializeField] public Transform backgroundParent;
     [SerializeField] public Transform groundParent;
+
+    [SerializeField] private Transform downArrow;
+    [SerializeField] private Transform upArrow;
+    private Sequence downArrowSequence;
+    private Sequence upArrowSequence;
 
     [Header("Prefab Ref")]
     private GameObject backgroundPrefab;
@@ -40,6 +47,18 @@ public class Surf : MonoBehaviour
         backgroundPrefab = Resources.Load<GameObject>("Prefabs/Environment/Background");
         groundPrefab = Resources.Load<GameObject>("Prefabs/Environment/Ground");
         nextXPosBG = backgroundUnit;
+
+        // down arrow
+        downArrowSequence = DOTween.Sequence();
+        downArrowSequence.Append(downArrow.DOScale(new Vector3(0.25f, 0.25f, 1f), 0.2f));
+        downArrowSequence.AppendInterval(0.4f);
+        downArrowSequence.Append(downArrow.DOScale(new Vector3(0f, 0f, 0f), 0.1f));
+
+        // up arrow
+        upArrowSequence = DOTween.Sequence();
+        upArrowSequence.Append(upArrow.DOScale(new Vector3(0.25f, 0.25f, 1f), 0.2f));
+        upArrowSequence.AppendInterval(0.4f);
+        upArrowSequence.Append(upArrow.DOScale(new Vector3(0f, 0f, 0f), 0.1f));
     }
     
     private void FixedUpdate()
@@ -64,12 +83,14 @@ public class Surf : MonoBehaviour
     {
         Vector2 forceDirection = new Vector2(horizontalSurfHigherForce, verticalSurfHigherForce);
         rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
+        upArrowSequence.Restart();
     }
 
     public void SurfLower()
     {
         Vector2 forceDirection = new Vector2(horizontalSurfLowerForce, verticalSurfLowerForce);
         rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
+        downArrowSequence.Restart();
     }
 
     public void StartGame()

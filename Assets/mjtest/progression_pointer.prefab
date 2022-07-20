@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6955149107105848508}
   - component: {fileID: 6955149107105848510}
   m_Layer: 5
-  m_Name: Image
+  m_Name: progression_pointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

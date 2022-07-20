@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6329272287363543862}
   - component: {fileID: 6329272287363543863}
   m_Layer: 5
-  m_Name: Image 1
+  m_Name: progression_bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
