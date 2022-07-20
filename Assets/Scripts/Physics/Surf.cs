@@ -28,10 +28,12 @@ public class Surf : MonoBehaviour
     public bool isStarted  = false;
     public bool isGameOver = false;
     public bool isGameWin  = false;
+    public bool isQTEZone  = false;
 
     [Header("Other Values")]
     private float nextXPosBG;
     [SerializeField] public float backgroundUnit;
+    private Vector3 originPosition;
     // private float paddingX;
 
     [Header("Physics")]
@@ -46,6 +48,8 @@ public class Surf : MonoBehaviour
 
     private void Awake()
     {
+        originPosition = transform.position;
+
         rigidbody = GetComponent<Rigidbody2D>();
         backgroundPrefab = Resources.Load<GameObject>("Prefabs/Environment/Background");
         groundPrefab = Resources.Load<GameObject>("Prefabs/Environment/Ground");
@@ -79,6 +83,12 @@ public class Surf : MonoBehaviour
             bg.transform.parent = backgroundParent;
             ground.transform.parent = groundParent;
             nextXPosBG += backgroundUnit;
+        }
+
+        if(transform.position.x > 200f && !isQTEZone)
+        {
+            isQTEZone = true;
+            MultitaskCamera.instance.AppearQTECamera();
         }
 
         if(transform.position.x > 1500f)
@@ -122,6 +132,8 @@ public class Surf : MonoBehaviour
         isStarted = true;
         Vector2 forceDirection = new Vector2(horizontalSurfStartForce, verticalSurfStartForce);
         rigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
+
+        MultitaskCamera.instance.AppearBalanceCamera();
     }
 
     private bool IsStopped()
@@ -142,8 +154,19 @@ public class Surf : MonoBehaviour
         }
     }
 
+    public void RestartGame()
+    {
+        isGameOver = false;
+        MultitaskCamera.instance.DisableBalanceCamera();
+        MultitaskCamera.instance.DisableQTECamera();
+
+        gameObject.transform.position = originPosition;
+
+        StartGame();
+    }
+
     public void Ending()
     {
-
+        isGameWin = true;
     }
 }

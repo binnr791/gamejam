@@ -5,13 +5,13 @@ using UnityEngine;
 public class TypoonObject : MonoBehaviour
 {
     Vector2 force;
-    SpriteRenderer renderer;
+    new SpriteRenderer renderer;
     float lastSpriteTime;
     float spriteTime;
 
     private void Awake()
     {
-        force = new Vector2(1.2f, 3f);
+        force = new Vector2(2.4f, 7f);
         spriteTime = 0.35f;
         renderer = GetComponent<SpriteRenderer>();
         

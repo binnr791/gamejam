@@ -32,8 +32,8 @@ public class Typoon : MonoBehaviour
         isTypoonCome = false;
         isTypoonWarned = false;
 
-        typoonStartTime = 4f;
-        typoonInterval = 15f;
+        typoonStartTime = 20f;
+        typoonInterval = 16f;
 
         // 태풍 경고문 초기화
         Tween moveDown = typoonWarningObject.DOAnchorPos(new Vector2(0f, 0f), 0.2f);

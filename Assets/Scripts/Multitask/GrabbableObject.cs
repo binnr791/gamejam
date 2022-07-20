@@ -11,4 +11,12 @@ public class GrabbableObject : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         rigidbody.AddForce(new Vector2(-1f, 0f), ForceMode2D.Impulse);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Destroy")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
