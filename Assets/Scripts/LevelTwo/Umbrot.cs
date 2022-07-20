@@ -6,14 +6,22 @@ public class Umbrot : MonoBehaviour
 {
     public float turnSpeed = 1000;
     public float angle;
-    public float UmbAngle;
 
     public GameObject Umb;
+    public GameObject qteBoxParent;
     public GameObject other;
     public GameObject barrier;
 
     private bool isRotate = true;
-    private bool isSpace = true;
+    public bool isSpace = true;
+
+    public float lastBarrierActiveTime;
+    public float barrierDuration;
+
+    private void Awake()
+    {
+        barrier.SetActive(false);
+    }
 
     void Update()
     {
@@ -21,17 +29,17 @@ public class Umbrot : MonoBehaviour
             transform.Rotate(Vector3.forward, turnSpeed * Time.deltaTime);
             
 
-        if (Input.GetKeyDown(KeyCode.Space) && isRotate)
+        if (Input.GetKeyDown(KeyCode.Space) && isSpace)
         {
             StartCoroutine("RndAngle");
             StartCoroutine("UmbStopRotate");
             StartCoroutine("SpaceClicked");
-
-            UmbAngle = transform.rotation.z;
         }
 
-        barrier.SetActive(false);
- 
+        if(lastBarrierActiveTime + barrierDuration < Time.time)
+        {
+            barrier.SetActive(false);
+        }
     }
 
     private IEnumerator UmbStopRotate()
@@ -50,31 +58,18 @@ public class Umbrot : MonoBehaviour
 
     private IEnumerator RndAngle()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
+        SetQTEBoxPosRandom();
+    }
+
+    public void SetQTEBoxPosRandom()
+    {
         angle = Random.Range(0, 360);
+        Vector3 newRot = new Vector3(0f, 0f, angle);
+        qteBoxParent.transform.rotation = Quaternion.Euler(newRot);
+        other.gameObject.SetActive(true);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-    }
-
-    void OnTriggerStay2D(Collider2D collision)
-    {
-        if (other.gameObject.CompareTag("QTE"))
-        {
-            if (isSpace)
-            {
-                other.gameObject.SetActive(false);
-                barrier.gameObject.SetActive(true);
-            }
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        
-    }
 }
 
 
