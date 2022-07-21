@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 
@@ -29,6 +30,7 @@ public class Surf : MonoBehaviour
     public bool isGameOver = false;
     public bool isGameWin  = false;
     public bool isQTEZone  = false;
+    public bool isRestarting=false;
 
     [Header("Other Values")]
     private float nextXPosBG;
@@ -66,6 +68,8 @@ public class Surf : MonoBehaviour
         upArrowSequence.Append(upArrow.DOScale(new Vector3(0.25f, 0.25f, 1f), 0.2f));
         upArrowSequence.AppendInterval(0.4f);
         upArrowSequence.Append(upArrow.DOScale(new Vector3(0f, 0f, 0f), 0.1f)).SetAutoKill(false);
+
+        StartGame();
     }
     
     private void FixedUpdate()
@@ -156,17 +160,26 @@ public class Surf : MonoBehaviour
 
     public void RestartGame()
     {
-        isGameOver = false;
-        MultitaskCamera.instance.DisableBalanceCamera();
-        MultitaskCamera.instance.DisableQTECamera();
+        if(!isRestarting)
+        {
+            // isRestarting = true;
+            // yield return new WaitForSeconds(0.3f);
+            // isGameOver = false;
+            // MultitaskCamera.instance.DisableBalanceCamera();
+            // MultitaskCamera.instance.DisableQTECamera();
 
-        gameObject.transform.position = originPosition;
+            // gameObject.transform.position = originPosition;
+            // rigidbody.velocity = Vector2.zero;
 
-        StartGame();
+            // StartGame();
+            // isRestarting = false;
+            SceneManager.LoadScene(1, LoadSceneMode.Single);
+        }
     }
 
     public void Ending()
     {
         isGameWin = true;
+        SceneManager.LoadScene(2);
     }
 }

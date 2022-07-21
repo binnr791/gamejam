@@ -13,7 +13,7 @@ public class Dialogue
 
 public class Finish : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer sprite_StandingCG;
+    [SerializeField] private Image sprite_StandingCG;
     [SerializeField] private SpriteRenderer sprite_DialogueBox;
     [SerializeField] private Text txt_Dialogue;
 

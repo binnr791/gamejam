@@ -42,10 +42,16 @@ public class BalanceCircle : MonoBehaviour
             redParticle.transform.position = transform.position;
             redParticle.Play();
 
-            transform.position = originPos;
-            rigidbody.velocity = Vector2.zero;
+            Reposition();
             surf.SurfLower();
             uptime = originUptime;
         }
     }
+
+    public void Reposition()
+    {
+        transform.position = originPos;
+        rigidbody.velocity = Vector2.zero;
+    }
 }
+

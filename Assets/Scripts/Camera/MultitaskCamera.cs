@@ -4,6 +4,8 @@ using UnityEngine;
 
 using DG.Tweening;
 
+[DefaultExecutionOrder(-1)]
+
 public class MultitaskCamera : MonoBehaviour
 {
     public static MultitaskCamera instance;
@@ -14,6 +16,9 @@ public class MultitaskCamera : MonoBehaviour
 
     [SerializeField] private GameObject balanceObject;
     [SerializeField] private GameObject qteObject;
+
+    [SerializeField] private BalanceCircle circle;
+    [SerializeField] private GameObject board;
 
     [Header("DoTween")]
     private Sequence appearBalanceCamera;
@@ -64,6 +69,8 @@ public class MultitaskCamera : MonoBehaviour
 
         if(balanceObject != null)
         {
+            circle.Reposition();
+            board.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -5f));
             balanceObject.SetActive(false);
         }
     }
