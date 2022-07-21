@@ -4,6 +4,7 @@ using UnityEngine;
 
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody2D))]
 
@@ -20,6 +21,7 @@ public class Surf : MonoBehaviour
     public Sequence upArrowSequence;
 
     [SerializeField] private GameObject gameOverWindow;
+    [SerializeField] private TextMeshProUGUI velocityText;
 
     [Header("Prefab Ref")]
     private GameObject backgroundPrefab;
@@ -99,6 +101,8 @@ public class Surf : MonoBehaviour
         {
             Ending();
         }
+
+        velocityText.text = Mathf.RoundToInt(rigidbody.velocity.x * 10f).ToString();
     }
 
     public void SurfHigher()
