@@ -7525,8 +7525,8 @@ MonoBehaviour:
   verticalSurfStartForce: 8
   horizontalSurfHigherForce: 0.8
   verticalSurfHigherForce: 2.5
-  horizontalSurfLowerForce: -2
-  verticalSurfLowerForce: -0.5
+  horizontalSurfLowerForce: -1.5
+  verticalSurfLowerForce: -0.2
 --- !u!50 &760860506
 Rigidbody2D:
   serializedVersion: 4

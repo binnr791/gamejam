@@ -11,7 +11,7 @@ public class TypoonObject : MonoBehaviour
 
     private void Awake()
     {
-        force = new Vector2(2.4f, 7f);
+        force = new Vector2(3f, 7f);
         spriteTime = 0.35f;
         renderer = GetComponent<SpriteRenderer>();
         
